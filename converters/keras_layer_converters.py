@@ -14,10 +14,10 @@ import numpy as np
 
 def _get_dense_layer_parameters(h5, layer_config, n_in):
     """Get weights, bias, and n-outputs for a dense layer"""
-    layer_group = h5[layer_config['name']]
-    layers = _get_h5_layers(layer_group)
-    weights = layers['W']
-    bias = layers['b']
+    layer_group = h5['model_weights'][layer_config['name']]
+    layers = layer_group[layer_config['name']]
+    weights = layers['kernel'][()]
+    bias = layers['bias'][()]
     assert weights.shape[1] == bias.shape[0]
     assert weights.shape[0] == n_in
     # TODO: confirm that we should be transposing the weight
